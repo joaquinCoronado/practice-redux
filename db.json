@@ -1,0 +1,19 @@
+{
+    "productos": [
+        {
+            "id": 1,
+            "nombre": "Resident Evil 3 Edición estándar",
+            "precio": "1299"
+        },
+        {
+            "id": 2,
+            "nombre": "Terminator Resistance",
+            "precio": "1599"
+        },
+        {
+            "id": 3,
+            "nombre": "Shadow of the Tomb Raider",
+            "precio": "1349"
+        }
+    ]
+}
