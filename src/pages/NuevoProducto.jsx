@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 const NuevoProducto = () => {
   let [name, setName] = useState("");
-  let [price, setPrice] = useState();
+  let [price, setPrice] = useState(0);
 
   return (
     <div>
       <div className="row">
         <form className="col s12">
+          <p>Agregar Producto</p>
           <div className="row">
             <div className="input-field col s12">
               <input
@@ -27,7 +28,9 @@ const NuevoProducto = () => {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-              <label htmlFor="price">Precio</label>
+              <label className="active" htmlFor="price">
+                Precio
+              </label>
             </div>
           </div>
           <div className="row">
