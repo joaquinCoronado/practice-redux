@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Producto from "../components/Producto";
+import { useDispatch, useSelector } from "react-redux";
+import { traerProductosAction } from "../redux/actions/productoActions";
 
 const Home = () => {
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(traerProductosAction());
+  }, [dispatch]);
+
+  let { productos } = useSelector(state => state.productos);
+
   return (
     <div>
       <p>
@@ -17,9 +27,9 @@ const Home = () => {
         </thead>
 
         <tbody>
-          <Producto item={{ name: "Lapiz", price: 15 }} />
-          <Producto item={{ name: "Mochila", price: 895 }} />
-          <Producto item={{ name: "MacBook Pro", price: 15000 }} />
+          {productos.map(producto => (
+            <Producto key={producto.id} item={producto} />
+          ))}
         </tbody>
       </table>
     </div>

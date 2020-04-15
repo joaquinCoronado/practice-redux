@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -10,18 +12,20 @@ import NotFound from "./pages/NotFound";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Layout>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/productos/nuevo" component={NuevoProducto} />
-          <Route
-            exact
-            path="/productos/editar/:id"
-            component={EditarProducto}
-          />
-          <Route component={NotFound} />
-        </Switch>
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/productos/nuevo" component={NuevoProducto} />
+            <Route
+              exact
+              path="/productos/editar/:id"
+              component={EditarProducto}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Provider>
     </BrowserRouter>
   );
 };

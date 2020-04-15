@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  traerProductoAction,
+  editarProductoAction,
+} from "../redux/actions/productoActions";
 
 const EditarProducto = () => {
   let [name, setName] = useState("");
   let [price, setPrice] = useState(0);
 
+  let { id } = useParams();
+  let dispatch = useDispatch();
+  let { selectProduct, loading } = useSelector(state => state.productos);
+
+  useEffect(() => {
+    dispatch(traerProductoAction(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setName(selectProduct.name);
+    setPrice(selectProduct.price);
+  }, [loading]);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(editarProductoAction({ id, name, price }));
+  };
+
   return (
     <div>
       <div className="row">
-        <form className="col s12">
+        <form className="col s12" onSubmit={handleSubmit}>
           <p>Editar Producto</p>
           <div className="row">
             <div className="input-field col s12">
@@ -17,7 +41,9 @@ const EditarProducto = () => {
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
-              <label htmlFor="name">Producto</label>
+              <label className="active" htmlFor="name">
+                Producto
+              </label>
             </div>
           </div>
           <div className="row">
@@ -35,12 +61,12 @@ const EditarProducto = () => {
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <div
+              <button
                 style={{ width: "100%" }}
                 className="waves-effect waves-light btn-small teal"
               >
                 Guardar Cambios
-              </div>
+              </button>
             </div>
           </div>
         </form>
